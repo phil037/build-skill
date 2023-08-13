@@ -1,4 +1,4 @@
-# competency spot
+# Competency Builder Application
 
 ## Backend Requirements
 

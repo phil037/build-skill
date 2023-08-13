@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { apiUrl } from '@/env';
-import { IUserProfile, IUserProfileUpdate, IUserProfileCreate } from './interfaces';
+import { IUserProfile, IUserProfileUpdate, IUserProfileCreate, IUserSkill } from './interfaces';
 
 function authHeaders(token: string) {
   return {
@@ -41,5 +41,8 @@ export const api = {
       new_password: password,
       token,
     });
+  },
+  async getSkill(token: string) {
+    return axios.get<IUserSkill>(`${apiUrl}/api/v1/skills/myskill`, authHeaders(token));
   },
 };

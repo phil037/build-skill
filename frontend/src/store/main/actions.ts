@@ -154,6 +154,17 @@ export const actions = {
             commitAddNotification(context, { color: 'error', content: 'Error resetting password' });
         }
     },
+    async actionGetUserSkill(context: MainContext) {
+
+        try {
+            const userId = context.state.userProfile?.id;
+            const response = await api.getSkill(context.state.token);
+            return response.data; // Return the API response data directly
+          } catch (error) {
+            await dispatchCheckApiError(context, error);
+            throw error; // Re-throw the error to handle it in the component
+          }
+    }
 };
 
 const { dispatch } = getStoreAccessors<MainState | any, State>('');
@@ -171,3 +182,4 @@ export const dispatchUpdateUserProfile = dispatch(actions.actionUpdateUserProfil
 export const dispatchRemoveNotification = dispatch(actions.removeNotification);
 export const dispatchPasswordRecovery = dispatch(actions.passwordRecovery);
 export const dispatchResetPassword = dispatch(actions.resetPassword);
+export const dispatchGetUserSkill = dispatch(actions.actionGetUserSkill);

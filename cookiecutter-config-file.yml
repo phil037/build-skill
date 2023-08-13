@@ -1,5 +1,5 @@
 default_context:
-  project_name: 'competency spot'
+  project_name: 'Skill Ops'
   project_slug: 'skill'
   domain_main: 'skill.com'
   domain_staging: 'stag.skill.com'

@@ -21,3 +21,11 @@ export interface IUserProfileCreate {
     is_active?: boolean;
     is_superuser?: boolean;
 }
+
+export interface IUserSkill {
+    owner_id: number;
+    id: number;
+    Python: number;
+    OLGA:number;
+    HYSYS: number;
+}

@@ -1,52 +1,77 @@
 <template>
   <div>
-    <h2>Skills Table starts here</h2>
-    <table>
+    <table v-if="userSkill.length > 0" class="table">
       <thead>
         <tr>
-          <th>Sl. No</th>
-          <th>Skill</th>
-          <th>Remarks</th>
+          <th>Skill Name</th>
+          <th>Skill Value</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, index) in tableData" :key="index">
-          <td>{{ row.slNo }}</td>
-          <td>{{ row.skill }}</td>
-          <td>{{ row.remarks }}</td>
+        <tr v-for="(skill, index) in userSkill" :key="index">
+          <td v-for="(value, key) in skill" :key="key">
+            {{ key }}: {{ value }}
+          </td>
         </tr>
       </tbody>
     </table>
+    <div v-else>
+      No skills available.
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      tableData: [],
-    };
-  },
-  mounted() {
-    // Call the API endpoint to fetch table data for the current employee
-    this.fetchTableData();
-  },
-  methods: {
-    async fetchTableData() {
-      try {
-        // Make an API request to fetch table data
-        // Pass any necessary authentication tokens or identifiers
-        const response = await axios.get('/api/skills', {
-          // Include any necessary headers or tokens for authentication
-          // Example: headers: { Authorization: 'Bearer your_token' }
-        });
 
-        // Assign the response data to the tableData array
-        this.tableData = response.data;
-      } catch (error) {
-        console.error('Error fetching table datas:', error);
-      }
-    },
-  },
-};
+<!-- <template>
+  <div class="table-container">
+    <data-table :items="jsonData" :columns="tableColumns" />
+  </div>
+</template> -->
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+// import DataTable from '@/components/DataTable.vue';
+import { Store } from 'vuex';
+// import { readToken, readUserProfile } from '@/store/main/getters';
+// import { readUserSkill} from '@/store/main/getters';
+import { dispatchGetUserSkill } from '@/store/main/actions';
+
+@Component
+export default class UserSkill extends Vue {
+  public userSkill: any = 7; // Declare userSkill as a data property
+
+  public async created() {
+    dispatchGetUserSkill(this.$store).then(skill => {
+      this.userSkill = skill;
+      console.log('skill returned:', skill); // Log the value
+      console.log('User skill:', this.userSkill); // Log the value
+    });
+
+
+  }
+}
+// export default {
+//   components: {
+//     DataTable,
+//   },
+//   data() {
+//     return {
+//       jsonData: [
+//         { id: 1, name: 'Alice', age: 28 },
+//         { id: 2, name: 'Bob', age: 32 },
+//         // Add more data here
+//       ],
+//       tableColumns: [
+//         { key: 'id', label: 'ID' },
+//         { key: 'name', label: 'Name' },
+//         { key: 'age', label: 'Age' },
+//         // Define more columns here
+//       ],
+//     };
+//   },
 </script>
+
+
+<style>
+
+</style>
